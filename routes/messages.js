@@ -23,7 +23,18 @@ const getResponse = {
 
 /* GET api/v1/messages */
 router.get("/", function (req, res, next) {
-  res.json(getResponse);
+   const { user } = req.query; // const user = req.query.user;
+   if (!user) res.json(getResponse);
+   else {
+     const filteredMessages = messages.filter(
+       (message) => message.user === user
+     );
+     res.json({
+       ...getResponse,
+       message: `GETTING message for user ${user}`,
+       data: { messages: filteredMessages },
+     });
+   }
 });
 
 router.get("/:id", function (req, res, next) {
