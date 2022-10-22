@@ -38,4 +38,18 @@ router.get("/:id", function (req, res, next) {
   res.json(getResponse);
 });
 
+router.post("/", function (req, res, next) {
+  const { message } = req.body; // const message = req.body.message;
+  console.log("message", message);
+  const newMessage = {
+    message: message.text,
+    user: message.user,
+  };
+  messages.push(newMessage);
+  const postResponse = {
+    message: `POSTING a new message for user ${message.user}`,
+  };
+  res.json(postResponse);
+});
+
 module.exports = router;
